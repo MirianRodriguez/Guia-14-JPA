@@ -15,11 +15,11 @@ import jpa.entidad.Autor;
  * @author mirod
  */
 public class AutorDao {
-    
+
     private final EntityManager em = Persistence
             .createEntityManagerFactory("LibreriaPU")
             .createEntityManager();//permite crear, borrar, actualizar y consultar entidades
-    
+
     public void insertar(Autor autor) throws Exception {
         try {
             em.getTransaction().begin();//inicia la transaccion
@@ -57,7 +57,7 @@ public class AutorDao {
         try {
             Autor autor = em.find(Autor.class, id);/*find busca y devuelve un objeto. Se le pasa la
             clase de objeto buscado y la clave primaria
-            */
+             */
             return autor;
         } catch (Exception e) {
             throw new Exception("Error al buscar autor por identifcador");
@@ -66,16 +66,27 @@ public class AutorDao {
 
     public List<Autor> obtenerTodos() throws Exception {
         try {
-            List<Autor> autors = em.createQuery("SELECT a FROM Autor a", Autor.class)
-                    .getResultList(); /*createQuery permite armar consultas dinamicas.
+            List<Autor> autors = em.createQuery("SELECT a FROM Autor a WHERE a.alta = true", Autor.class)
+                    .getResultList();
+            /*createQuery permite armar consultas dinamicas.
             No es lenguaje SQL sino JPQL. Se usa el nombre de la clase, no el nombre de la tabla.
             GetResultList devuelve la lista de resultados de la consulta. Se debe guardar en un List.
-            */
+             */
             return autors;
         } catch (Exception e) {
             throw new Exception("Error al buscar autores");
         }
     }
+
+    /*public List<Integer> obtenerIdentificadores() throws Exception {
+        try {
+            List<Integer> identificadores = em.createQuery("SELECT a.id FROM Autor a")
+                    .getResultList();
+            return identificadores;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar ids de autores");
+        }
+    }*/
 
     public List<Autor> obtenerPorNombre(String nombre) throws Exception {
         try {
