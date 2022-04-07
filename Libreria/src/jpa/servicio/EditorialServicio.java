@@ -68,11 +68,11 @@ public class EditorialServicio {
         }
     }
 
-    public void imprimirEditoriales() throws Exception {
+    public void imprimirEditoriales(List<Editorial> editoriales) throws Exception {
         try {
-            List<Editorial> editoriales = editorialDao.obtenerTodos();
+            
             if (editoriales.isEmpty()) {
-                throw new Exception("No existen editoriales");
+                System.out.println("No existen editoriales");
             } else {
                 System.out.println("LISTA DE EDITORIALES");
                 System.out.printf("%-10s%-20s\n", "ID", "NOMBRE");
@@ -82,6 +82,14 @@ public class EditorialServicio {
             }
         } catch (Exception e) {
             throw new Exception("Error al mostrar editoriales");
+        }
+    }
+    
+    public List<Editorial> obtenerEditoriales() throws Exception{
+        try{
+            return editorialDao.obtenerTodos();
+        }catch(Exception e){
+            throw new Exception("Error al obtener editoriales");
         }
     }
     

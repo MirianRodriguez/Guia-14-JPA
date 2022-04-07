@@ -52,7 +52,7 @@ public class LibroDao {
         }
     }
 
-    public Libro obtenerPorIsbn(Integer id) throws Exception {
+    public Libro obtenerPorIsbn(long id) throws Exception {
         try {
             Libro libro = em.find(Libro.class, id);/*find busca y devuelve un objeto. Se le pasa la
             clase de objeto buscado y la clave primaria
@@ -79,7 +79,7 @@ public class LibroDao {
     public List<Libro> obtenerPorTitulo(String titulo) throws Exception {
         try {
             List<Libro> libros = em.createQuery("SELECT l FROM Libro l WHERE l.titulo LIKE :t", Libro.class)
-                    .setParameter("t", titulo)
+                    .setParameter("t", "%" + titulo + "%")
                     .getResultList();
             return libros;
         } catch (Exception e) {
@@ -90,10 +90,12 @@ public class LibroDao {
     public List<Libro> obtenerPorAutor(String autor) throws Exception {
         try {
             List<Libro> libros = em.createQuery("SELECT l FROM Libro l WHERE l.autor.nombre LIKE :autor", Libro.class)
-                    .setParameter("autor", autor)
+                    .setParameter("autor", "%" + autor + "%")
                     .getResultList();
+            //CONCAT('%',:autor ,'%')
             return libros;
         } catch (Exception e) {
+            //e.printStackTrace();
             throw new Exception("Error al buscar libros por nombre de autor");
         }
     }
@@ -101,7 +103,7 @@ public class LibroDao {
     public List<Libro> obtenerPorEditorial(String editorial) throws Exception {
         try {
             List<Libro> libros = em.createQuery("SELECT l FROM Libro l WHERE l.editorial.nombre LIKE :editorial", Libro.class)
-                    .setParameter("editorial", editorial)
+                    .setParameter("editorial", "%" + editorial + "%")
                     .getResultList();
             return libros;
         } catch (Exception e) {

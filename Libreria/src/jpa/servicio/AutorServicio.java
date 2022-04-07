@@ -69,11 +69,10 @@ public class AutorServicio {
         }
     }
 
-    public void imprimirAutores() throws Exception {
+    public void imprimirAutores(List<Autor> autores) throws Exception {
         try {
-            List<Autor> autores = autorDao.obtenerTodos();
             if (autores.isEmpty()) {
-                throw new Exception("No existen autores");
+                System.out.println("No existen editoriales");
             } else {
                 System.out.println("LISTA DE AUTORES");
                 System.out.printf("%-10s%-20s\n", "ID", "NOMBRE");
@@ -82,7 +81,15 @@ public class AutorServicio {
                 }
             }
         } catch (Exception e) {
-            throw e;
+            throw new Exception("Error al imprimir autores");
+        }
+    }
+    
+    public List<Autor> obtenerAutores()throws Exception{
+        try{
+            return autorDao.obtenerTodos();
+        }catch(Exception e){
+            throw new Exception("Error al obtener autores");
         }
     }
 }
