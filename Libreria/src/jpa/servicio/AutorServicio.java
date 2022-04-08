@@ -39,18 +39,20 @@ public class AutorServicio {
 
     public void modificarAutor(Integer id, String nombre) throws Exception {
         try {
-            if (id == null){
+            if (id == null) {
                 throw new Exception("Debe indicar el id del autor");
             }
+            Autor autorAModificar = autorDao.obtenerPorId(id);
+            Autor autor = new Autor();
+            autor.setId(id);
+
             if (nombre == null || nombre.trim().isEmpty()) {
-                throw new Exception("El nombre es obligatorio");
+                autor.setNombre(autorAModificar.getNombre());
+            } else {
+                autor.setNombre(nombre);
             }
-            
-            Autor autorAModificar = new Autor();
-            autorAModificar.setId(id);
-            autorAModificar.setNombre(nombre);
-            
-            autorDao.actualizar(autorAModificar);
+
+            autorDao.actualizar(autor);
         } catch (Exception e) {
             throw new Exception("Error al modificar el autor");
         }
@@ -84,11 +86,11 @@ public class AutorServicio {
             throw new Exception("Error al imprimir autores");
         }
     }
-    
-    public List<Autor> obtenerAutores()throws Exception{
-        try{
+
+    public List<Autor> obtenerAutores() throws Exception {
+        try {
             return autorDao.obtenerTodos();
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new Exception("Error al obtener autores");
         }
     }

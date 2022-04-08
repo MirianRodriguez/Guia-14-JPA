@@ -81,47 +81,56 @@ public class LibroServicio {
                 throw new Exception("El isbn es obligatorio");
             }
 
-            /*if (titulo == null || titulo.trim().isEmpty()) {
-                throw new Exception("El titulo es obligatorio");
+            Libro libroAModificar = libroDao.obtenerPorIsbn(isbn);
+            Libro libro = new Libro();
+            libro.setIsbn(isbn);
+
+            if (titulo == null || titulo.trim().isEmpty()) {
+                libro.setTitulo(libroAModificar.getTitulo());
+            } else {
+                libro.setTitulo(titulo);
             }
 
             if (anio == null || anio.toString().trim().isEmpty()) {
-                throw new Exception("El año es obligatorio");
+                libro.setAnio(libroAModificar.getAnio());
+            } else {
+                libro.setAnio(anio);
             }
 
             if (ejemplares == null || ejemplares.toString().trim().isEmpty()) {
-                throw new Exception("La cantidad de ejemplares es obligatoria");
+                libro.setEjemplares(libroAModificar.getEjemplares());
+            } else {
+                libro.setEjemplares(ejemplares);
             }
 
             if (ejemplaresPrestados == null || ejemplaresPrestados.toString().trim().isEmpty()) {
-                throw new Exception("La cantidad de ejemplares prestados es obligatoria");
+                libro.setEjemplaresPrestados(libroAModificar.getEjemplaresPrestados());
+            } else {
+                libro.setEjemplaresPrestados(ejemplaresPrestados);
             }
 
             if (ejemplaresRestantes == null || ejemplaresRestantes.toString().trim().isEmpty()) {
-                throw new Exception("La cantidad de ejemplares restantes es obligatoria");
+                libro.setEjemplaresRestantes(libroAModificar.getEjemplaresRestantes());
+            } else {
+                libro.setEjemplaresRestantes(ejemplaresRestantes);
             }
 
             if (autor == null) {
-                throw new Exception("El autor es obligatorio");
+                libro.setAutor(libroAModificar.getAutor());
+            } else {
+                libro.setAutor(autor);
             }
 
             if (editorial == null) {
-                throw new Exception("La editorial es obligatoria");
-            }*/
-            
-            Libro libro = new Libro();
-            libro.setIsbn(isbn);
-            libro.setTitulo(titulo);
-            libro.setAnio(anio);
-            libro.setEjemplares(ejemplares);
-            libro.setEjemplaresPrestados(ejemplaresPrestados);
-            libro.setEjemplaresRestantes(ejemplaresRestantes);
-            libro.setAutor(autor);
-            libro.setEditorial(editorial);
+                libro.setEditorial(libroAModificar.getEditorial());
+            } else {
+                libro.setEditorial(editorial);
+            }
+
             libroDao.actualizar(libro);
 
         } catch (Exception e) {
-            throw new Exception("Error al crear libro.");
+            throw new Exception("Error al modificar libro.");
         }
     }
 
@@ -168,7 +177,7 @@ public class LibroServicio {
 
     public List<Libro> obtenerTodos() throws Exception {
         try {
-             return libroDao.obtenerTodos();
+            return libroDao.obtenerTodos();
         } catch (Exception e) {
             throw new Exception("Error al buscar libros");
         }
@@ -179,7 +188,7 @@ public class LibroServicio {
             List<Libro> libros = libroDao.obtenerPorTitulo(titulo);
             System.out.println("Libros titulados " + titulo);
             imprimirLibros(libros);
-        } catch (Exception e) {        
+        } catch (Exception e) {
             throw new Exception("Error al buscar por titulo");
         }
     }
@@ -195,7 +204,7 @@ public class LibroServicio {
             throw new Exception("Error al buscar por autor");
         }
     }
-    
+
     public void buscarPorEditorial(String editorial) throws Exception {
         try {
             List<Libro> libros = Arrays.asList();
@@ -205,5 +214,5 @@ public class LibroServicio {
         } catch (Exception e) {
             throw new Exception("Error al buscar por editorial");
         }
-    }    
+    }
 }

@@ -66,11 +66,8 @@ public class Principal {
             libroServicio.eliminarLibro(9789295055024l);
             librosCargados = libroServicio.obtenerTodos();
             libroServicio.imprimirLibros(librosCargados);
-            
-
-
             //modificar un libro
-            libroServicio.modificarLibro(9789295055026l, "El amor en los tiempos del colera", null, null, null, null, null, null);
+            libroServicio.modificarLibro(9789295055026l, "El amor en LOS tiempos del colera", 1986, null, null, null, null, null);
             librosCargados = libroServicio.obtenerTodos();
             libroServicio.imprimirLibros(librosCargados);
             //modificar un autor
@@ -81,10 +78,12 @@ public class Principal {
             editorialServicio.modificarEditorial(2, "Perfiles");
             editorialesCargadas = editorialServicio.obtenerEditoriales();
             editorialServicio.imprimirEditoriales(editorialesCargadas);
+
+
             //eliminar editorial
-            editorialServicio.eliminarEditorial(3);
-            editorialesCargadas = editorialServicio.obtenerEditoriales();
-            editorialServicio.imprimirEditoriales(editorialesCargadas);
+            //editorialServicio.eliminarEditorial(3);
+            //editorialesCargadas = editorialServicio.obtenerEditoriales();
+            //editorialServicio.imprimirEditoriales(editorialesCargadas);
             
         } catch (Exception e) {
             System.out.println("Error" + e);

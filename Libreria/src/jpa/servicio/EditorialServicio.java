@@ -41,15 +41,16 @@ public class EditorialServicio {
             if (id == null){
                 throw new Exception("Debe indicar el id de la editorial");
             }
+            Editorial editorialAModificar = editorialDao.obtenerPorId(id);
+            Editorial editorial = new Editorial();
+            editorial.setId(id);
             if (nombre == null || nombre.trim().isEmpty()) {
-                throw new Exception("El nombre es obligatorio");
+                editorial.setNombre(editorialAModificar.getNombre());
+            }else{
+                editorial.setNombre(nombre);
             }
-            
-            Editorial editorialAModificar = new Editorial();
-            editorialAModificar.setId(id);
-            editorialAModificar.setNombre(nombre);
-            
-            editorialDao.actualizar(editorialAModificar);
+             
+            editorialDao.actualizar(editorial);
         } catch (Exception e) {
             throw new Exception("Error al modificar la editorial");
         }
@@ -64,6 +65,7 @@ public class EditorialServicio {
             editorialAEliminar = editorialDao.obtenerPorId(id);
             editorialDao.eliminar(editorialAEliminar);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception("Error al eliminar editorial");
         }
     }
